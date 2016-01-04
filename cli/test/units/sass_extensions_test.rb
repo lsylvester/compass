@@ -214,6 +214,15 @@ WARNING
     Compass::Core::SassExtensions::Functions::ImageSize::ImageProperties.new(object)
   end
 
+  def test_image_size_should_respont_to_filename
+    object = mock()
+    object.expects(:filename).returns('foo.jpg')
+    object.expects(:respond_to?).with(:to_path).returns(false)
+    object.expects(:respond_to?).with(:filename).returns(true)
+
+    Compass::Core::SassExtensions::Functions::ImageSize::ImageProperties.new(object)
+  end
+
   def test_reject
     assert_equal "b d", evaluate("reject(a b c d, a, c)")
     assert_equal "a b c d", evaluate("reject(a b c d, e)")
